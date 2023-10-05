@@ -3,13 +3,14 @@ const morgan = require('morgan'); // import the morgan middleware
 const app = express();
 
 app.use(express.json());
+app.use(requestLogger);
 
 morgan.token('postData', (req) => {
   return JSON.stringify(req.body);
 });
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
-
+app.use(express.static('dist'))
 
 let persons = [
     { 

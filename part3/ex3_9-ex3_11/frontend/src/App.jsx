@@ -2,93 +2,12 @@ import React, { useState, useEffect } from 'react';
 import phonebookService from './services/phonebook'; 
 import axios from 'axios';
 import './App.css'; 
+import Filter from './components/Filter';
+import Notification from './components/Notification';
+import PersonForm from './components/PersonForm';
+import DeleteNotification from './components/DeleteNotification';
+import Persons from './components/Persons';
 
-const Filter = ({ searchTerm, handleSearch }) => {
-  return (
-    <p>
-      filter shown with 
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-    </p>
-  );
-};
-
-const PersonForm = ({
-  newName,
-  newNumber,
-  handleNameChange,
-  handleNumberChange,
-  addPerson,
-}) => {
-  return (
-    <form onSubmit={addPerson}>
-      <div>
-        Name:
-        <input
-          type="text"
-          value={newName}
-          onChange={handleNameChange}
-        />
-      </div>
-      <div>
-        Number:
-        <input
-          type="text"
-          value={newNumber}
-          onChange={handleNumberChange}
-        />
-      </div>
-      <div>
-        <button type="submit">Add</button>
-      </div>
-    </form>
-  );
-};
-
-const Notification = ({ message }) => {
-  if (message === null) {
-    return null
-  }
-
-  return (
-    <div className='message'>
-      {message}
-    </div>
-  )
-};
-
-const DeleteNotification = ({ message }) => {
-  if (message === null) {
-    return null
-  }
-
-  return (
-    <div className='deleteMessage'>
-      {message}
-    </div>
-  )
-};
-
-
-const Persons = ({ persons, searchTerm, onDelete }) => {
-  const filteredPersons = persons.filter((person) =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  return (
-    <ul>
-      {filteredPersons.map((person) => (
-        <li key={person.id}>
-          {person.name} {person.number}
-          <button onClick={() => onDelete(person.id)}>Delete</button>
-        </li>
-      ))}
-    </ul>
-  );
-};
 
 const App = () => {
   const [persons, setPersons] = useState([]);
