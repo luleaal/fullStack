@@ -51,12 +51,12 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>');
 });
 
-app.get('/api/persons', (request, response) => {
+app.get('/persons', (request, response) => {
   response.json(persons);
 });
 // http://localhost:3001/api/persons
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   const person = persons.find(person => person.id === id)
   
@@ -77,7 +77,7 @@ app.get('/info', (request, response) => {
   })
 // http://localhost:3001/info
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   persons = persons.filter(person => person.id !== id)
 
@@ -91,7 +91,7 @@ const generateId = () => {
   return maxId + 1
 }
 
-app.post('/api/persons', (request, response) => {
+app.post('/persons', (request, response) => {
   const body = request.body;
 
   if (!body.name || !body.number) {
@@ -117,6 +117,10 @@ app.post('/api/persons', (request, response) => {
 });
 
 app.use(unknownEndpoint)
+
+app.get('*', (request, response) => {
+  response.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const PORT = 3001
 app.listen(PORT)
