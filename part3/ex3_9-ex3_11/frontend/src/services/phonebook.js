@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const baseUrl = 'https://phonebook-render-front.onrender.com' 
+const baseUrl = 'https://phonebook-render-c33s.onrender.com/' 
 
 const getAll = () => {
   return axios.get(baseUrl).then((response) => response.data);
