@@ -11,11 +11,6 @@ const requestLogger = (request, response, next) => {
   console.log('---')
   next()
 }
-debugger;
-
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
-}
 
 app.use(cors())
 app.use(express.json())
@@ -90,9 +85,6 @@ app.post('/persons', (request, response) => {
 
   response.json(person);
 });
-
-app.use(unknownEndpoint)
-
 
 app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, 'build', 'index.html'));
