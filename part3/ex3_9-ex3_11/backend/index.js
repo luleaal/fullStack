@@ -2,6 +2,7 @@ const express = require('express')
 let persons = require('./db.json');
 const app = express()
 const cors = require('cors')
+const morgan = require('morgan'); 
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
