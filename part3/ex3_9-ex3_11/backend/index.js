@@ -1,16 +1,28 @@
-const express = require('express');
-const morgan = require('morgan'); // import the morgan middleware
-const app = express();
+const express = require('express')
+const app = express()
+const cors = require('cors')
 
-app.use(express.json());
-app.use(requestLogger);
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(cors())
+app.use(express.json())
+app.use(requestLogger)
+app.use(express.static('build'))
 
 morgan.token('postData', (req) => {
   return JSON.stringify(req.body);
 });
 
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
-app.use(express.static('dist'))
 
 let persons = [
     { 
@@ -104,6 +116,7 @@ app.post('/api/persons', (request, response) => {
   response.json(person);
 });
 
+app.use(unknownEndpoint)
 
 const PORT = 3001
 app.listen(PORT)
