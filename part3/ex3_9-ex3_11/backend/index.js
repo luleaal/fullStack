@@ -23,7 +23,6 @@ morgan.token('postData', (req) => {
   return JSON.stringify(req.body);
 });
 
-
 let persons = [
     { 
       id: 1,
