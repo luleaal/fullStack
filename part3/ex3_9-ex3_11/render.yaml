@@ -1,6 +1,6 @@
 services:
   - name: frontend
-    buildCommand: npm run dev  # Adjust this command based on your frontend build process
+    buildCommand: npm run build  # Adjust this command based on your frontend build process
     startCommand: npx serve -s build
     env:
       - key: NODE_ENV
