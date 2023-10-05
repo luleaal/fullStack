@@ -8,7 +8,6 @@ import PersonForm from './components/PersonForm';
 import DeleteNotification from './components/DeleteNotification';
 import Persons from './components/Persons';
 
-
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
