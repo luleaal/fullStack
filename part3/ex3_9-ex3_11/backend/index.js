@@ -12,14 +12,19 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
 app.use(cors())
 app.use(express.json())
-app.use(requestLogger)
-app.use(express.static('build'))
-
 morgan.token('postData', (req) => {
   return JSON.stringify(req.body);
 });
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
+app.use(requestLogger)
+app.use(express.static('build'))
+
 
 app.get('/persons', (request, response) => {
   response.json(persons);
@@ -86,10 +91,9 @@ app.post('/persons', (request, response) => {
   response.json(person);
 });
 
-app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.use(unknownEndpoint);
 
 const PORT = 3001
-app.listen(PORT)
-console.log(`Server running on port ${PORT}`)
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
