@@ -61,7 +61,7 @@ app.delete('/persons/:id', (request, response) => {
   persons = persons.filter(person => person.id !== id)
 
   response.status(204).end()
-}) // tested with postman and it worked
+}) 
 
 const generateId = () => {
   const maxId = persons.length > 0
