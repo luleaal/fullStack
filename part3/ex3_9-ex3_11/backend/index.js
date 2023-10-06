@@ -23,7 +23,7 @@ morgan.token('postData', (req) => {
 });
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
 app.use(requestLogger)
-app.use(express.static('build'))
+app.use(express.static('dist'))
 
 
 app.get('/persons', (request, response) => {
