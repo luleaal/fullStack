@@ -27,8 +27,9 @@ app.use(express.static('dist'))
 
 
 app.get('/api/persons', (request, response) => {
+  response.send(persons)
   response.json(persons)
-  console.log(persons); // Log the loaded data
+  
 })
 // http://localhost:3001/api/persons
 
