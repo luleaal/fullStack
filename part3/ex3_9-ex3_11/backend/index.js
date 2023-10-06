@@ -1,5 +1,5 @@
 const express = require('express')
-let persons = require('./db.json');
+//let persons = require('./db.json');
 const cors = require('cors')
 
 const app = express()
