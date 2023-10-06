@@ -1,10 +1,9 @@
 const express = require('express')
-//let persons = require('./db.json');
+let persons = require('./db.json');
 const cors = require('cors')
 
 const app = express()
 
-const fs = require('fs');
 app.use(express.static('dist'))
 
 const morgan = require('morgan'); 
@@ -30,22 +29,9 @@ morgan.token('postData', (req) => {
 });
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
 
-let persons = []; // Initialize with an empty array
-
-fs.readFile('./db.json', 'utf8', (err, data) => {
-  if (err) {
-    console.error('Error reading db.json:', err);
-  } else {
-    try {
-      persons = JSON.parse(data); // Parse the JSON data
-    } catch (parseError) {
-      console.error('Error parsing db.json:', parseError);
-    }
-  }
-});
 
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  response.send(persons.stringify)
 })
 // http://localhost:3001/api/persons
 
