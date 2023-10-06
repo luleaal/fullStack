@@ -24,12 +24,11 @@ morgan.token('postData', (req) => {
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
 app.use(requestLogger)
 app.use(express.static('dist'))
+app.use(persons)
 
 
 app.get('/api/persons', (request, response) => {
-  response.send(persons)
   response.json(persons)
-  
 })
 // http://localhost:3001/api/persons
 
