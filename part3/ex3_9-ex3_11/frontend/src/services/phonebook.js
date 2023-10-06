@@ -5,6 +5,7 @@ import axios from 'axios';
 const baseUrl = '/api/persons' 
 
 const getAll = () => {
+  console.log(persons); // Log the loaded data
   return axios.get(baseUrl).then((response) => response.data);
 };
 
