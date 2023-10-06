@@ -72,6 +72,9 @@ const App = () => {
     }
   };
   
+  const personsList = {
+    searchTerm, persons, handleDelete
+  };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -126,7 +129,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons persons={persons} searchTerm={searchTerm} onDelete={handleDelete}/>
+      <Persons persons={personsList} searchTerm={searchTerm} onDelete={handleDelete}/>
     </div>
   );
 };
