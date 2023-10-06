@@ -26,9 +26,10 @@ app.use(requestLogger)
 app.use(express.static('dist'))
 
 
-app.get('/persons', (request, response) => {
-  response.json(persons);
-});
+app.get('/api/persons', (request, response) => {
+  response.json(persons)
+  console.log(persons); // Log the loaded data
+})
 // http://localhost:3001/api/persons
 
 app.get('/persons/:id', (request, response) => {
