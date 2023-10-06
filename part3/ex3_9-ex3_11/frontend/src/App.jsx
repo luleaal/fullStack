@@ -42,7 +42,7 @@ const App = () => {
   
       if (confirmed) {
         axios
-          .put(`http://localhost:3001/persons/${existingPerson.id}`, newPerson)
+          .put(`http://localhost:3001/api/persons/${existingPerson.id}`, newPerson)
           .then((response) => {
             setPersons(
               persons.map((person) =>
@@ -59,7 +59,7 @@ const App = () => {
       }
     } else {
       axios
-        .post('http://localhost:3001/persons', newPerson)
+        .post('http://localhost:3001/api/persons', newPerson)
         .then((response) => {
           setPersons([...persons, response.data]);
           setNewName('');
@@ -72,9 +72,6 @@ const App = () => {
     }
   };
   
-  const personsList = {
-    searchTerm, persons, handleDelete
-  };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -129,7 +126,7 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons persons={personsList} searchTerm={searchTerm} onDelete={handleDelete}/>
+      <Persons persons={persons} searchTerm={searchTerm} onDelete={handleDelete}/>
     </div>
   );
 };
