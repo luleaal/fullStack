@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const baseUrl = '/api/persons' 
+const baseUrl = 'https://phonebook-render-c33s.onrender.com/api/persons'; 
 
 const getAll = () => {
   return axios.get(baseUrl).then((response) => response.data);
