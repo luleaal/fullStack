@@ -87,17 +87,23 @@ const App = () => {
 
   const handleDelete = (id) => {
     const personToDelete = persons.find((person) => person.id === id);
-
+  
     if (!personToDelete) {
       return;
     }
-
+  
     const confirmed = window.confirm(`Delete ${personToDelete.name}?`);
-
+  
     if (confirmed) {
       phonebookService.eliminate(id).then(() => {
-        setPersons(persons.filter((person) => person.id !== id));
-
+        const updatedPersons = [];
+        for (const person of persons) {
+          if (person.id !== id) {
+            updatedPersons.push(person);
+          }
+        }
+        setPersons(updatedPersons);
+  
         // Set the delete message
         setDeleteMessage(`Deleted ${personToDelete.name}`);
         setTimeout(() => {
@@ -106,6 +112,7 @@ const App = () => {
       });
     }
   };
+  
 
   return (
     <div>
