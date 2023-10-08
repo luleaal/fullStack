@@ -31,8 +31,8 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms :p
 
 
 app.get('/api/persons', (request, response) => {
-  response.send(persons.stringify)
-})
+  response.json(persons);
+});
 // http://localhost:3001/api/persons
 
 app.get('/persons/:id', (request, response) => {
