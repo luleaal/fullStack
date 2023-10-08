@@ -2,7 +2,7 @@ import React from 'react';
 
 const Persons = ({ persons, searchTerm, onDelete }) => {
     const filteredPersons = [];
-
+    
     for (const person of persons) {
       if (person.name.toLowerCase().includes(searchTerm.toLowerCase())) {
         filteredPersons.push(person);
