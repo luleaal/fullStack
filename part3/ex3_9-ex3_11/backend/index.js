@@ -1,5 +1,4 @@
 const express = require('express')
-let persons = require('./db.json');
 const cors = require('cors')
 
 const app = express()
@@ -29,8 +28,8 @@ morgan.token('postData', (req) => {
 });
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
 
-
 app.get('/api/persons', (request, response) => {
+  const persons = request.body
   response.json(persons);
 });
 // http://localhost:3001/api/persons
