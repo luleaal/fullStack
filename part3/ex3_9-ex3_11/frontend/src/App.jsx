@@ -33,43 +33,45 @@ const App = () => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
   
-    const existingPerson = persons.find((person) => person.name === newName);
-  
-    if (existingPerson) {
-      const confirmed = window.confirm(
-        `${newName} is already in the phonebook. Do you want to update their number?`
-      );
-  
-      if (confirmed) {
+    if (persons.length) {
+      const existingPerson = persons.find((person) => person.name === newName);
+      if (existingPerson) {
+        const confirmed = window.confirm(
+          `${newName} is already in the phonebook. Do you want to update their number?`
+        );
+    
+        if (confirmed) {
+          axios
+            .put(`http://localhost:3001/api/persons/${existingPerson.id}`, newPerson)
+            .then((response) => {
+              setPersons(
+                persons.map((person) =>
+                  person.id === existingPerson.id ? response.data : person
+                )
+              );
+              setNewName('');
+              setNewNumber('');
+              showNotification(`Updated ${newName}'s number`);
+            })
+            .catch((error) => {
+              console.error("Error updating person:", error);
+            });
+        }
+      } else {
         axios
-          .put(`http://localhost:3001/api/persons/${existingPerson.id}`, newPerson)
+          .post('http://localhost:3001/api/persons', newPerson)
           .then((response) => {
-            setPersons(
-              persons.map((person) =>
-                person.id === existingPerson.id ? response.data : person
-              )
-            );
+            setPersons([...persons, response.data]);
             setNewName('');
             setNewNumber('');
-            showNotification(`Updated ${newName}'s number`);
+            showNotification(`Added ${newName}`);
           })
           .catch((error) => {
-            console.error("Error updating person:", error);
+            console.error("Error adding new person:", error);
           });
       }
-    } else {
-      axios
-        .post('http://localhost:3001/api/persons', newPerson)
-        .then((response) => {
-          setPersons([...persons, response.data]);
-          setNewName('');
-          setNewNumber('');
-          showNotification(`Added ${newName}`);
-        })
-        .catch((error) => {
-          console.error("Error adding new person:", error);
-        });
     }
+    
   };
   
 
