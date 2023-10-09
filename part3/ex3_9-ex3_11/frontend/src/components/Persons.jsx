@@ -1,13 +1,11 @@
 import React from 'react';
 
 const Persons = ({ persons, searchTerm, onDelete }) => {
-    const filteredPersons = [];
-    
-    for (const person of persons) {
-      if (person.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-        filteredPersons.push(person);
-      }
-    }
+  if (!persons.length) return null // You can change null for some text explaining the user what is going on  
+
+  const filteredPersons = persons.filter((person) =>
+    person.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   
     return (
       <ul>
