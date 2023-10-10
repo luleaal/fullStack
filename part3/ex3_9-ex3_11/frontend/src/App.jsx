@@ -32,11 +32,12 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
+    let existingPerson; // Declare it here
     
     if (persons.length) {
-      const existingPerson = persons.find((person) => person.name === newName);
+      existingPerson = persons.find((person) => person.name === newName); // Assign a value here
     } else {
-      const existingPerson = undefined;
+      existingPerson = undefined; // Assign a value here
     }
     
     if (existingPerson) {
@@ -74,9 +75,7 @@ const App = () => {
           console.error("Error adding new person:", error);
         });
     }
-  };
-  
-  
+  };  
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
