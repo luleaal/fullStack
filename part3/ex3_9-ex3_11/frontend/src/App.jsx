@@ -39,7 +39,7 @@ const App = () => {
       const existingPerson = null;
     }
     
-    if (existingPerson) {
+    if (existingPerson && existingPerson != null) {
       const confirmed = window.confirm(
         `${newName} is already in the phonebook. Do you want to update their number?`
       );
