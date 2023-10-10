@@ -35,7 +35,9 @@ const App = () => {
     
     if (persons.length) {
       const existingPerson = persons.find((person) => person.name === newName);
-    } 
+    } else {
+      const existingPerson = undefined;
+    }
     
     if (existingPerson) {
       const confirmed = window.confirm(
