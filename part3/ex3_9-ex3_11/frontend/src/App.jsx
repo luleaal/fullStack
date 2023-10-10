@@ -47,7 +47,7 @@ const App = () => {
   
       if (confirmed) {
         axios
-          .put(`http://localhost:3001/api/persons/${existingPerson.id}`, newPerson)
+          .put(`/api/persons/${existingPerson.id}`, newPerson)
           .then((response) => {
             setPersons(
               persons.map((person) =>
@@ -64,7 +64,7 @@ const App = () => {
       }
     } else {
       axios
-        .post('http://localhost:3001/api/persons', newPerson)
+        .post('/api/persons', newPerson)
         .then((response) => {
           setPersons([...persons, response.data]);
           setNewName('');
