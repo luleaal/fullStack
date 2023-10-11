@@ -1,5 +1,4 @@
 const express = require('express')
-let persons = require('./db.json');
 const cors = require('cors')
 
 const app = express()
@@ -29,10 +28,10 @@ morgan.token('postData', (req) => {
 });
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
 
-
 app.get('/api/persons', (request, response) => {
-  response.send(persons.stringify)
-})
+  const persons = request.body
+  response.json(persons);
+});
 // http://localhost:3001/api/persons
 
 app.get('/persons/:id', (request, response) => {
@@ -57,11 +56,22 @@ app.get('/info', (request, response) => {
 // http://localhost:3001/info
 
 app.delete('/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter(person => person.id !== id)
+  const id = Number(request.params.id);
 
-  response.status(204).end()
-}) 
+  // Find the index of the person with the given ID
+  const indexToDelete = persons.findIndex(person => person.id === id);
+
+  if (indexToDelete !== -1) {
+    // Remove the person from the array
+    persons.splice(indexToDelete, 1);
+
+    response.status(204).end();
+  } else {
+    // If the person with the given ID was not found, return a 404 response
+    response.status(404).end();
+  }
+});
+
 
 const generateId = () => {
   const maxId = persons.length > 0
