@@ -32,13 +32,8 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
-    let existingPerson; // Declare it here
     
-    if (persons.length) {
-      existingPerson = persons.find((person) => person.name === newName); // Assign a value here
-    } else {
-      existingPerson = undefined; // Assign a value here
-    }
+    const existingPerson = persons.find((person) => person.name === newName); // Assign a value here
     
     if (existingPerson) {
       const confirmed = window.confirm(
