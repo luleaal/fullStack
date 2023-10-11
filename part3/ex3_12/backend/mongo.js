@@ -5,8 +5,10 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
+const password = process.argv[2]
+
 const url =
-  `mongodb+srv://luciale:1tXwGcesMA606h5h@cluster0.xm9ig8c.mongodb.net/phonebookApp?retryWrites=true&w=majority&appName=AtlasApp`
+  `mongodb+srv://luciale:${password}@cluster0.xm9ig8c.mongodb.net/phonebookApp?retryWrites=true&w=majority&appName=AtlasApp`
 
 mongoose.set('strictQuery',false)
 
