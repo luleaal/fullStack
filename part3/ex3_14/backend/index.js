@@ -1,13 +1,11 @@
-require('dotenv').config()
+
 const express = require('express')
 const cors = require('cors')
-const Person = require('./modules/person')
+const Person = require('./models/person')
 
 const app = express()
 
 app.use(express.static('dist'))
-
-const morgan = require('morgan'); 
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -25,10 +23,6 @@ app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
 
-morgan.token('postData', (req) => {
-   return JSON.stringify(req.body);
-});
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postData'));
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
@@ -54,22 +48,15 @@ app.get('/info', (request, response) => {
   })
 // http://localhost:3001/info
 
-app.delete('/persons/:id', (request, response) => {
-  const id = Number(request.params.id);
-
-  // Find the index of the person with the given ID
-  const indexToDelete = persons.findIndex(person => person.id === id);
-
-  if (indexToDelete !== -1) {
-    // Remove the person from the array
-    persons.splice(indexToDelete, 1);
-
-    response.status(204).end();
-  } else {
-    // If the person with the given ID was not found, return a 404 response
-    response.status(404).end();
-  }
-});
+app.delete('/api/persons/:id', (request, response) => {
+  Person.findByIdAndDelete(request.params.id)
+      .then(person => {
+          response.status(204).end()
+      })
+      .catch(error => {
+          response.status(500).send('Error deleting person: ' + error)
+      })
+})
 
 
 // const generateId = () => {
