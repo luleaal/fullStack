@@ -69,6 +69,8 @@ const App = () => {
         .catch(error => {
           setIsErrorMessage(true)
           setNotification(`${error.response.data.error}`)
+          showNotification(`Person validation failed: Path 'name' (${newName}) is shorter 
+          than the minimum allowed length (3).`);
         })
         setTimeout(() => {
           setNotification(null)
