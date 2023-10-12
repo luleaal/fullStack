@@ -68,10 +68,10 @@ const App = () => {
         })
         .catch(error => {
           setIsErrorMessage(true)
-          setResultMessage(`${error.response.data.error}`)
+          setNotification(`${error.response.data.error}`)
         })
         setTimeout(() => {
-          setResultMessage(null)
+          setNotification(null)
         }, 3000)
     }
   };  
