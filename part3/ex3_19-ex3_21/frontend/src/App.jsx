@@ -14,7 +14,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [notification, setNotification] = useState(null);
-  const [deleteMessage, setDeleteMessage] = useState(null); 
+  const [deleteMessage, setDeleteMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null); 
 
   useEffect(() => {
     phonebookService.getAll().then((initialPersons) => {
@@ -29,12 +30,24 @@ const App = () => {
     }, 3000);
   };
 
+  const showError = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 3000);
+  };
+
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
     
     const existingPerson = persons.find((person) => person.name === newName); // Assign a value here
     
+    if (!newName || !newNumber) {
+      showError("Name and/or number is missing");
+      return;
+    }
+
     if (existingPerson) {
       const confirmed = window.confirm(
         `${newName} is already in the phonebook. Do you want to update their number?`
@@ -55,7 +68,7 @@ const App = () => {
           })
           .catch((error) => {
             console.error("Error adding new person:", error.response.data.error);
-            showNotification(error.response.data.error); 
+            showError(error.response.data.error); 
           });
       }
     } else {
@@ -131,6 +144,7 @@ const App = () => {
         addPerson={addPerson}
       />
 
+      {errorMessage && <div className="error">{errorMessage}</div>}
       <h3>Numbers</h3>
 
       <Persons persons={persons} searchTerm={searchTerm} onDelete={handleDelete}/>
