@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const Person = require('./models/person')
@@ -29,7 +29,7 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
   })
 });
-// http://localhost:3001/api/persons
+
 
 app.get('/persons/:id', (request, response) => {
   Person.findById(request.params.id)
