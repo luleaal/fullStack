@@ -1,5 +1,5 @@
 {
-  "name": "ex3_9-ex3_11",
+  "name": "ex3_14",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mongoose": "^7.6.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
