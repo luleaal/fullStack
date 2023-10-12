@@ -54,7 +54,8 @@ const App = () => {
             showNotification(`Updated ${newName}'s number`);
           })
           .catch((error) => {
-            console.error("Error updating person:", error);
+            console.error("Error adding new person:", error.response.data.error);
+            showNotification(error.response.data.error); 
           });
       }
     } else {

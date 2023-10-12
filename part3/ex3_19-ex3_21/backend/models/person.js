@@ -14,23 +14,24 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB:', error.message)
   })
 
-  const personSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      minLength: 3,
-      required: true
+const personSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    minLength: 3,
+    required: true
+  },
+  number: {
+    type: String,
+    validate: {
+      validator: function (value) {
+        const pattern = /^(?:\d{2,3}-\d{7})$/;
+        return pattern.test(value);
+      },
+      message: props => `${props.value} is not a valid phone number! Valid format: xx-xxxxxxx or xxx-xxxxxxx`
     },
-    number: {
-      type: String,
-      validate: {
-        validator: function (value) {
-          const pattern = /^(?:\d{2,3}-\d{7})$/;
-          return pattern.test(value);
-        },
-        message: props => `${props.value} is not a valid phone number! Valid format: xx-xxxxxxx or xxx-xxxxxxx`
-      }
-    }
-  })
+    minLength: 8
+  }
+})
 
 personSchema.set('toJSON', {
     transform: (document, returnedObject) => {
