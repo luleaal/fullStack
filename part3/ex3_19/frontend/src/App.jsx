@@ -53,9 +53,9 @@ const App = () => {
             setNewNumber('');
             showNotification(`Updated ${newName}'s number`);
           })
-          .catch(error => {
-            console.log(error.response.data.error)
-          })
+          .catch((error) => {
+            console.error("Error updating person:", error);
+          });
       }
     } else {
       axios
@@ -66,9 +66,13 @@ const App = () => {
           setNewNumber('');
           showNotification(`Added ${newName}`);
         })
-        .catch((error) => {
-          console.error("Error adding new person:", error);
-        });
+        .catch(error => {
+          setIsErrorMessage(true)
+          setResultMessage(`${error.response.data.error}`)
+        })
+        setTimeout(() => {
+          setResultMessage(null)
+        }, 3000)
     }
   };  
 
