@@ -41,14 +41,14 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
-    
+  
     const existingPerson = persons.find((person) => person.name === newName); // Assign a value here
-    
+  
     if (!newName || !newNumber) {
       showError("Name and/or number is missing");
       return;
     }
-
+  
     if (existingPerson) {
       const confirmed = window.confirm(
         `${newName} is already in the phonebook. Do you want to update their number?`
@@ -63,36 +63,37 @@ const App = () => {
                 person.id === existingPerson.id ? response.data : person
               )
             );
-            setNewName('');
-            setNewNumber('');
+            setNewName("");
+            setNewNumber("");
             showNotification(`Updated ${newName}'s number`);
           })
           .catch((error) => {
-            console.error("Error adding new person:", error.response.data.error);
-            setErrorMessage('Invalid name or number length');
+            console.error("Error updating person:", error);
+            showError(error.response.data.error);
             setTimeout(() => {
-              setDeleteMessage(null); // Clear the delete message
+              setErrorMessage(null);
             }, 3000);
           });
       }
     } else {
       axios
-        .post('/api/persons', newPerson)
+        .post("/api/persons", newPerson)
         .then((response) => {
           setPersons([...persons, response.data]);
-          setNewName('');
-          setNewNumber('');
+          setNewName("");
+          setNewNumber("");
           showNotification(`Added ${newName}`);
         })
         .catch((error) => {
-          console.error("Error adding new person:", error.response.data.error);
+          console.error("Error adding new person:", error);
           showError(error.response.data.error);
           setTimeout(() => {
-            setErrorMessage(null); 
+            setErrorMessage(null);
           }, 3000);
         });
     }
-  };  
+  };
+    
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -151,7 +152,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
         addPerson={addPerson}
       />
-
+      <br></br>
       <ErrorMessage message={errorMessage} />
       <h3>Numbers</h3>
 
