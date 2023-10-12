@@ -141,7 +141,7 @@ const App = () => {
         addPerson={addPerson}
       />
 
-      <ErrorMessage message={deleteMessage} />
+      <ErrorMessage message={errorMessage} />
       <h3>Numbers</h3>
 
       <Persons persons={persons} searchTerm={searchTerm} onDelete={handleDelete}/>
