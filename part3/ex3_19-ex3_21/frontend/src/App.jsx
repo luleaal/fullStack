@@ -6,6 +6,7 @@ import Filter from './components/Filter';
 import Notification from './components/Notification';
 import PersonForm from './components/PersonForm';
 import DeleteNotification from './components/DeleteNotification';
+import ErrorMessage from './components/ErrorMessage';
 import Persons from './components/Persons';
 
 const App = () => {
@@ -30,13 +31,6 @@ const App = () => {
     }, 3000);
   };
 
-  const showError = (message) => {
-    setErrorMessage(message);
-    setTimeout(() => {
-      setErrorMessage(null);
-    }, 3000);
-  };
-
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
@@ -44,7 +38,7 @@ const App = () => {
     const existingPerson = persons.find((person) => person.name === newName); // Assign a value here
     
     if (!newName || !newNumber) {
-      showError("Name and/or number is missing");
+      showNotification("Name and/or number is missing");
       return;
     }
 
@@ -68,7 +62,10 @@ const App = () => {
           })
           .catch((error) => {
             console.error("Error adding new person:", error.response.data.error);
-            showError(error.response.data.error); 
+            setErrorMessage('Invalid name or number length');
+            setTimeout(() => {
+              setDeleteMessage(null); // Clear the delete message
+            }, 3000);
           });
       }
     } else {
@@ -144,7 +141,7 @@ const App = () => {
         addPerson={addPerson}
       />
 
-      {errorMessage && <div className="error">{errorMessage}</div>}
+      <ErrorMessage message={deleteMessage} />
       <h3>Numbers</h3>
 
       <Persons persons={persons} searchTerm={searchTerm} onDelete={handleDelete}/>
