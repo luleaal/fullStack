@@ -31,6 +31,13 @@ const App = () => {
     }, 3000);
   };
 
+  const showError = (message) => {
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage(null);
+    }, 3000);
+  };
+
   const addPerson = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
@@ -38,7 +45,7 @@ const App = () => {
     const existingPerson = persons.find((person) => person.name === newName); // Assign a value here
     
     if (!newName || !newNumber) {
-      showNotification("Name and/or number is missing");
+      showError("Name and/or number is missing");
       return;
     }
 
@@ -78,7 +85,11 @@ const App = () => {
           showNotification(`Added ${newName}`);
         })
         .catch((error) => {
-          console.error("Error adding new person:", error);
+          console.error("Error adding new person:", error.response.data.error);
+          showError(error.response.data.error);
+          setTimeout(() => {
+            setErrorMessage(null); 
+          }, 3000);
         });
     }
   };  
