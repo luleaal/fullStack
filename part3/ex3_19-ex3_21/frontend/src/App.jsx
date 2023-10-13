@@ -77,7 +77,7 @@ const App = () => {
     } else {
       phonebookService.create(newPerson)
       .then(() => {
-        personsService.getAll().then((response) => {
+        phonebookService.getAll().then((response) => {
           setPersons(response)
           setNewName("");
           setNewNumber("");
