@@ -55,7 +55,7 @@ const App = () => {
       );
   
       if (confirmed) {
-        personsService.update(newPerson, existingPerson.id)
+        phonebookService.update(newPerson, existingPerson.id)
         .then((response) => {
           setPersons(
             persons.map((person) =>
@@ -75,7 +75,7 @@ const App = () => {
         });
       }
     } else {
-      personsService.create(newPerson)
+      phonebookService.create(newPerson)
       .then(() => {
         personsService.getAll().then((response) => {
           setPersons(response)
