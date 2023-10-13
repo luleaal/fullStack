@@ -55,42 +55,41 @@ const App = () => {
       );
   
       if (confirmed) {
-        axios
-          .put(`/api/persons/${existingPerson.id}`, newPerson)
-          .then((response) => {
-            setPersons(
-              persons.map((person) =>
-                person.id === existingPerson.id ? response.data : person
-              )
-            );
-            setNewName("");
-            setNewNumber("");
-            showNotification(`Updated ${newName}'s number`);
-          })
-          .catch((error) => {
-            console.error("Error updating person:", error);
-            showError(error.response.data.error);
-            setTimeout(() => {
-              setErrorMessage(null);
-            }, 3000);
-          });
-      }
-    } else {
-      axios
-        .post("/api/persons", newPerson)
+        personsService.update(newPerson, existingPerson.id)
         .then((response) => {
-          setPersons([...persons, response.data]);
+          setPersons(
+            persons.map((person) =>
+              person.id === existingPerson.id ? response.data : person
+            )
+          );
           setNewName("");
           setNewNumber("");
-          showNotification(`Added ${newName}`);
+          showNotification(`Updated ${newName}'s number`);
         })
         .catch((error) => {
-          console.error("Error adding new person:", error);
+          console.error("Error updating person:", error);
           showError(error.response.data.error);
           setTimeout(() => {
             setErrorMessage(null);
           }, 3000);
         });
+      }
+    } else {
+      personsService.create(newPerson)
+      .then(() => {
+        personsService.getAll().then((response) => {
+          setPersons(response)
+          setNewName("");
+          setNewNumber("");
+          showNotification(`Added ${newPerson.name}`)
+        });
+      })
+      .catch(error => {
+        showError(`${error.response.data.error}`)
+      })
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 3000)
     }
   };
     
