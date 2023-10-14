@@ -15,7 +15,6 @@ const PersonForm = ({
             type="text"
             value={newName}
             onChange={handleNameChange}
-            minLength={3}
           />
         </div>
         <div>
@@ -24,7 +23,6 @@ const PersonForm = ({
             type="text"
             value={newNumber}
             onChange={handleNumberChange}
-            minLength={8}
           />
         </div>
         <div>
