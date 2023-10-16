@@ -85,11 +85,11 @@ const App = () => {
         });
       })
       .catch(error => {
-        showError(`${error.response.data.error}`)
-      })
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 3000)
+        showError(error.response.data.error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 3000);
+      });
     }
   };
     
