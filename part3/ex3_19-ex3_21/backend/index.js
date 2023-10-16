@@ -104,7 +104,11 @@ app.put('/api/persons/:id', (request, response, next) => {
     number: body.number,
   }
 
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(
+    request.params.id, 
+    person, 
+    { new: true, runValidators: true, context: 'query' }
+    )
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
@@ -113,10 +117,10 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.use(unknownEndpoint);
 
-// this has to be the last loaded middleware.
-app.use(errorHandler)
-
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// this has to be the last loaded middleware.
+app.use(errorHandler)
