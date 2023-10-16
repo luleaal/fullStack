@@ -44,7 +44,7 @@ app.get('/api/persons', (request, response) => {
 });
 
 
-app.get('/persons/:id', (request, response) => {
+app.get('/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
       .then(person => {
         if (person) {
@@ -66,7 +66,7 @@ app.get('/info', (request, response) => {
   })
 // http://localhost:3001/info
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
       .then(person => {
           response.status(204).end()
@@ -82,7 +82,7 @@ app.delete('/api/persons/:id', (request, response) => {
 //   return maxId + 1
 // }
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   const person = new Person({
@@ -117,10 +117,10 @@ app.put('/api/persons/:id', (request, response, next) => {
 
 app.use(unknownEndpoint);
 
+// this has to be the last loaded middleware.
+app.use(errorHandler)
+
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-// this has to be the last loaded middleware.
-app.use(errorHandler)
