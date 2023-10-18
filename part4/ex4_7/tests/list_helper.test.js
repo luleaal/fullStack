@@ -88,7 +88,7 @@ describe('favorite blog', () => {
 });
 
 
-describe('most blog', () => {
+describe('most blogs', () => {
   test('when list has only one blog, returns that author', () => {
     const listWithOneBlog = [
       {
@@ -135,3 +135,50 @@ describe('most blog', () => {
   });
 });
 
+
+describe('most likes', () => {
+  test('when list has only one blog, returns that author', () => {
+    const listWithOneBlog = [
+      {
+        title: 'Canonical string reduction',
+        author: 'Edsger W. Dijkstra',
+        likes: 12,
+      },
+    ];
+
+    const result = listHelper.mostLikes(listWithOneBlog);
+    const expectedAuthor = {
+      author: 'Edsger W. Dijkstra',
+      likes: 12
+    };
+
+    expect(result).toEqual(expectedAuthor);
+  });
+  test('when list has more than one blog, returns the author with more likes', () => {
+    const listWithThreeBlogs = [
+      {
+        title: 'Canonical string reduction',
+        author: 'Edsger W. Dijkstra',
+        likes: 12,
+      },
+      {
+        title: 'Sample blog',
+        author: 'James Doe',
+        likes: 10,
+      },
+      {
+        title: 'Canonical string reduction Part 2',
+        author: 'Edsger W. Dijkstra',
+        likes: 18,
+      },
+    ];
+
+    const result = listHelper.mostLikes(listWithThreeBlogs);
+    const expectedAuthor = {
+      author: 'Edsger W. Dijkstra',
+      likes: 18+12,
+    };
+
+    expect(result).toEqual(expectedAuthor);
+  });
+});
