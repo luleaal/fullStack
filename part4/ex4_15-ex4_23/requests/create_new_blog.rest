@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imx1bGVhYWwiLCJpZCI6IjY1MzU0Yjg3ZDc0YWQ5ZjM5NmIwYmVmMCIsImlhdCI6MTY5ODIyNzI2MX0.Yv8wlQ1YE7wFPNUePTRrj385yUJ6BI6DRcyeQS8wm4I
+
+{
+  "title": "Sample Blog part 3",
+  "author": "John Doe",
+  "url": "https://example.com/sample-blog"
+}
