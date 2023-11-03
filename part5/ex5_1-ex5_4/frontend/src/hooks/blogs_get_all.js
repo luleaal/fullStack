@@ -11,7 +11,6 @@ const useGetAllBlogs = (user, blogsUpdated) => {
             });
         }
     }, [user, blogsUpdated]);
-
     return blogs;
 };
 

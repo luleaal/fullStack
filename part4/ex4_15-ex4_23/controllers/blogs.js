@@ -20,8 +20,8 @@ blogsRouter.get('/', async (_request, response) => {
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
-  if (!body.likes){
-    body.likes = 0
+  if (!body.blog.likes){
+    body.blog.likes = 0
   }
 
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
@@ -33,7 +33,10 @@ blogsRouter.post('/', async (request, response) => {
   const user = request.user;
   
   const blog = new Blog({
-    ...body,
+    title: body.blog.title,
+    author: body.blog.author,
+    url: body.blog.url,
+    likes: body.blog.likes,
     user: user._id})
 
   const result = await blog.save()

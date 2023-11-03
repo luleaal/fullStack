@@ -52,15 +52,15 @@ const App = () => {
         blog
       })
 
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-
       setBlogsUpdated(true)
       setNotificationMessage(`${title} by ${author} added`)
       setTimeout(() => {
         setNotificationMessage(null)
       }, 5000)
+
+      setTitle('')
+      setAuthor('')
+      setUrl('')
 
     } catch (error) {
       setNotificationMessage(error.response.data.error)
@@ -72,36 +72,36 @@ const App = () => {
 
   const blogForm = () => (
     <form onSubmit={handleCreateBlog}>
-          <div>
-            Title:
-              <input
-              type="text"
-              value={title}
-              name="Title"
-              onChange={({ target }) => setTitle(target.value)}
-              />
-          </div>
-          <div>
-            Author: 
-              <input
-              type="text"
-              value={author}
-              name="Author"
-              onChange={({ target }) => setAuthor(target.value)}
-              />
-          </div>
-          <div>
-            Url:
-              <input
-              type="text"
-              value={url}
-              name="Url"
-              onChange={({ target }) => setUrl(target.value)}
-              />
-          </div>
-          <br></br>
-          <button type="submit">Create</button>
-        </form>
+      <div>
+        Title:
+          <input
+          type="text"
+          value={title}
+          name="Title"
+          onChange={({ target }) => setTitle(target.value)}
+          />
+      </div>
+      <div>
+        Author: 
+          <input
+          type="text"
+          value={author}
+          name="Author"
+          onChange={({ target }) => setAuthor(target.value)}
+          />
+      </div>
+      <div>
+        Url:
+          <input
+          type="text"
+          value={url}
+          name="Url"
+          onChange={({ target }) => setUrl(target.value)}
+          />
+      </div>
+      <br></br>
+      <button type="submit">Create</button>
+    </form>
   )
 
   const handleLogin = async (event) => {
