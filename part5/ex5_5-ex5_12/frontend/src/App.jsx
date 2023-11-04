@@ -151,6 +151,10 @@ const App = () => {
 		}
 	}
 
+  const sortBlogsByLikes = (blogs) => {
+    return blogs.slice().sort((a, b) => b.likes - a.likes);
+  };
+
 
   return (
     <div>
@@ -176,7 +180,7 @@ const App = () => {
           <br></br>  
 
           <h2>Blogs list: </h2>
-          {blogs.map(blog => (
+          {sortBlogsByLikes(blogs).map((blog) => (
             <Blog handleLikes={updateBlogLikes} key={blog.id} blog={blog} />
           ))}
         </>
