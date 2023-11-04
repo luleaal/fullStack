@@ -1,4 +1,4 @@
-const createBlogForm = ({title, author, url, handleSubmit
+const createBlogForm = ({title, setTitle, author, setAuthor, url, setUrl, handleSubmit
     }) => (
     <>
     <h2>Create new blog</h2>

@@ -72,7 +72,7 @@ blogsRouter.delete('/:id', async (request, response) => {
 
   const user = request.user;
 
-  if (blogToDelete.user != user.id.toString()) {
+  if (blogToDelete.user.toString() != user.id) {
     return response.status(401).json({ error: 'Unauthorized user' });
   }
 

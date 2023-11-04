@@ -34,7 +34,7 @@ const App = () => {
 
   useEffect(() => {
     if (user) {
-      setUsername(user.name)
+      setUsername(user.username)
     }
   }, [user])
 
@@ -79,8 +79,11 @@ const App = () => {
     <Togglable buttonLabel='Create blog'>
       <CreateBlogForm
         title = {title}
+        setTitle={setTitle}
         author = {author}
+        setAuthor={setAuthor}
         url = {url}
+        setUrl={setUrl}
         handleSubmit={handleCreateBlog}
       />
     </Togglable>
@@ -153,7 +156,17 @@ const App = () => {
 
   const sortBlogsByLikes = (blogs) => {
     return blogs.slice().sort((a, b) => b.likes - a.likes);
-  };
+  }
+
+  const handleDeleteBlog = async (blogToDelete) => {
+		if (blogToDelete) {
+			try {
+				await blogService.deleteBlog(blogToDelete)
+			} catch (error) {
+				console.log(error)
+			}
+		}
+	}
 
 
   return (
@@ -181,7 +194,8 @@ const App = () => {
 
           <h2>Blogs list: </h2>
           {sortBlogsByLikes(blogs).map((blog) => (
-            <Blog handleLikes={updateBlogLikes} key={blog.id} blog={blog} />
+            <Blog username = {username} handleLikes={updateBlogLikes} 
+                  onDeleteBlog={handleDeleteBlog} key={blog.id} blog={blog} />
           ))}
         </>
       )}
