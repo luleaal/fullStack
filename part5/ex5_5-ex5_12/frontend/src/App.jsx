@@ -38,6 +38,7 @@ const App = () => {
     }
   }, [user])
 
+
   const handleCreateBlog = async (event) => {
     event.preventDefault()
 
@@ -138,6 +139,18 @@ const App = () => {
     )
   }
 
+  const updateBlogLikes = async (blogId) => {
+		const blogToUpdate = blogs.find((blog) => blog.id === blogId)
+		const updatedBlog = { ...blogToUpdate, likes: blogToUpdate.likes + 1 }
+
+		try {
+			await blogService.addLike(updatedBlog)
+      setBlogsUpdated(true)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
 
   return (
     <div>
@@ -164,7 +177,7 @@ const App = () => {
 
           <h2>Blogs list: </h2>
           {blogs.map(blog => (
-            <Blog key={blog.id} blog={blog} />
+            <Blog handleLikes={updateBlogLikes} key={blog.id} blog={blog} />
           ))}
         </>
       )}

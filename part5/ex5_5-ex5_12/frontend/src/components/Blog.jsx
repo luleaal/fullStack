@@ -1,6 +1,6 @@
 import Togglable from './Togglable'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikes }) => {
 
   const blogStyle = {
     paddingTop: 10,
@@ -19,7 +19,7 @@ const Blog = ({ blog }) => {
       <b>{blog.title} </b> by: {blog.author}
       <Togglable buttonLabel = 'view'>
         <u><p className='url' style={urlStyle}>{blog.url}</p></u>
-        <p className='likes'>Likes: {blog.likes} <button>Like</button></p> 
+        <p className='likes'>Likes: {blog.likes} <button onClick={() => handleLikes(blog.id)}>Like</button></p> 
       </Togglable>
     </div> 
   )
