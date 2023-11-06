@@ -25,10 +25,10 @@ const Blog = ({ blog, handleLikes, onDeleteBlog, username }) => {
   }
 
   const handleOnDeleteBlog = () => {
-		if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)){
-			onDeleteBlog(blog)
-		}
-	}
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)){
+      onDeleteBlog(blog)
+    }
+  }
 
   return (
     <div style={blogStyle}>
@@ -36,14 +36,14 @@ const Blog = ({ blog, handleLikes, onDeleteBlog, username }) => {
       <Togglable buttonLabel = 'view'>
         <u><p className='url' style={urlStyle}>{blog.url}</p></u>
         <p className='likes'>
-          Likes: {blog.likes} 
+          Likes: {blog.likes}
           <button style={likeStyle} onClick={() => handleLikes(blog.id)}>Like</button>
-        </p> 
-        {username == (blog.user.username) ?
+        </p>
+        {username === (blog.user.username) ?
           <button style={removeStyle} onClick={handleOnDeleteBlog}>Remove</button> :
-        null}
+          null}
       </Togglable>
-    </div> 
+    </div>
   )
 }
 

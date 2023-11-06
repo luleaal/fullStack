@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import blogService from "../services/blogs";
+import { useState, useEffect } from 'react'
+import blogService from '../services/blogs'
 
 const useGetAllBlogs = (user, blogsUpdated) => {
-    const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([])
 
-    useEffect(() => {
-        if (user) {
-            blogService.getAll().then((fetchedBlogs) => {
-            setBlogs(fetchedBlogs);
-            });
-        }
-    }, [user, blogsUpdated]);
-    return blogs;
-};
+  useEffect(() => {
+    if (user) {
+      blogService.getAll().then((fetchedBlogs) => {
+        setBlogs(fetchedBlogs)
+      })
+    }
+  }, [user, blogsUpdated])
+  return blogs
+}
 
-export default useGetAllBlogs;
+export default useGetAllBlogs

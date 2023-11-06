@@ -12,8 +12,8 @@ import useGetAllBlogs from './hooks/blogs_get_all'
 const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState('') 
-  const [password, setPassword] = useState('') 
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [notificationMessage, setNotificationMessage] = useState(null)
   const [loginVisible, setLoginVisible] = useState(false)
   const [title, setTitle] = useState('')
@@ -43,8 +43,8 @@ const App = () => {
     event.preventDefault()
 
     const blog = {
-      title, 
-      author, 
+      title,
+      author,
       url
     }
 
@@ -75,31 +75,31 @@ const App = () => {
 
   const blogForm = () => (
     <>
-    <br></br>  
-    <Togglable buttonLabel='Create blog'>
-      <CreateBlogForm
-        title = {title}
-        setTitle={setTitle}
-        author = {author}
-        setAuthor={setAuthor}
-        url = {url}
-        setUrl={setUrl}
-        handleSubmit={handleCreateBlog}
-      />
-    </Togglable>
+      <br></br>
+      <Togglable buttonLabel='Create blog'>
+        <CreateBlogForm
+          title = {title}
+          setTitle={setTitle}
+          author = {author}
+          setAuthor={setAuthor}
+          url = {url}
+          setUrl={setUrl}
+          handleSubmit={handleCreateBlog}
+        />
+      </Togglable>
     </>
   )
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
+
     try {
       const user = await loginService.login({
         username, password,
       })
       window.localStorage.setItem(
         'loggedNoteappUser', JSON.stringify(user)
-      ) 
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -143,30 +143,30 @@ const App = () => {
   }
 
   const updateBlogLikes = async (blogId) => {
-		const blogToUpdate = blogs.find((blog) => blog.id === blogId)
-		const updatedBlog = { ...blogToUpdate, likes: blogToUpdate.likes + 1 }
+    const blogToUpdate = blogs.find((blog) => blog.id === blogId)
+    const updatedBlog = { ...blogToUpdate, likes: blogToUpdate.likes + 1 }
 
-		try {
-			await blogService.addLike(updatedBlog)
+    try {
+      await blogService.addLike(updatedBlog)
       setBlogsUpdated(true)
-		} catch (error) {
-			console.error(error)
-		}
-	}
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const sortBlogsByLikes = (blogs) => {
-    return blogs.slice().sort((a, b) => b.likes - a.likes);
+    return blogs.slice().sort((a, b) => b.likes - a.likes)
   }
 
   const handleDeleteBlog = async (blogToDelete) => {
-		if (blogToDelete) {
-			try {
-				await blogService.deleteBlog(blogToDelete)
-			} catch (error) {
-				console.log(error)
-			}
-		}
-	}
+    if (blogToDelete) {
+      try {
+        await blogService.deleteBlog(blogToDelete)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
 
   return (
@@ -175,10 +175,10 @@ const App = () => {
       <h1>Blogs</h1>
 
       <Notification message={notificationMessage}/>
-      
+
       {!user && (
         <>
-        {loginForm()}
+          {loginForm()}
         </>
       )}
 
@@ -187,15 +187,15 @@ const App = () => {
           <p>{username} logged in </p>
           <button onClick={handleLogout}>Log out</button>
 
-          <br></br>  
+          <br></br>
 
           {blogForm()}
-          <br></br>  
+          <br></br>
 
           <h2>Blogs list: </h2>
           {sortBlogsByLikes(blogs).map((blog) => (
-            <Blog username = {username} handleLikes={updateBlogLikes} 
-                  onDeleteBlog={handleDeleteBlog} key={blog.id} blog={blog} />
+            <Blog username = {username} handleLikes={updateBlogLikes}
+              onDeleteBlog={handleDeleteBlog} key={blog.id} blog={blog} />
           ))}
         </>
       )}
