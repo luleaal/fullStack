@@ -31,13 +31,13 @@ const Blog = ({ blog, handleLikes, onDeleteBlog, username }) => {
   }
 
   return (
-    <div style={blogStyle} className='blog'>
+    <div style={blogStyle} className='blog' id='blog'>
       <b>{blog.title} </b> by: {blog.author}
       <Togglable buttonLabel = 'view'>
         <u><p className='url' style={urlStyle}>{blog.url}</p></u>
-        <p className='likes'>
+        <p className='likes' id='likes'>
           Likes: {blog.likes}
-          <button style={likeStyle} onClick={() => handleLikes(blog.id)}>Like</button>
+          <button id='likeButton' style={likeStyle} onClick={() => handleLikes(blog.id)}>Like</button>
         </p>
         {username === (blog.user.username) ?
           <button style={removeStyle} onClick={handleOnDeleteBlog}>Remove</button> :
